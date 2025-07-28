@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="8dp"
+    android:paddingHorizontal="-8dp"
+    android:background="@drawable/bg_gradient">
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="14:32:15"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:fontFamily="@font/poppins_regular" />
+
+    <TextView
+        android:id="@+id/textLocation"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Lab Multimedia"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:fontFamily="@font/poppins_regular" />
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Dika"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:fontFamily="@font/poppins_regular" />
+
+    <TextView
+        android:id="@+id/textStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:text="Dikenali"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:layout_marginRight="20dp"
+        android:padding="4dp"
+        android:fontFamily="@font/poppins_regular"
+        android:background="@drawable/bg_status_green"
+        android:textColor="@color/white" />
+
+</LinearLayout>

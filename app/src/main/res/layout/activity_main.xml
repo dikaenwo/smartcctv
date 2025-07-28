@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    tools:context=".MainActivity"
+    android:background="@drawable/bg_gradient">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="23dp"
+        android:src="@drawable/profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="27dp"
+        android:text="Hi Murnie,"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="15sp"
+        android:text="Welcome Back!"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <LinearLayout
+        android:id="@+id/iconRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="137dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnNotif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="11dp"
+            android:contentDescription="Notifikasi"
+            android:src="@drawable/ic_notif" />
+
+        <ImageView
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="11dp"
+            android:contentDescription="Cari"
+            android:src="@drawable/ic_search" />
+
+        <ImageView
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Keluar"
+            android:src="@drawable/ic_logout" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_marginTop="14dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="9dp"
+            android:paddingBottom="20dp"
+            android:layout_marginEnd="9dp"
+            android:background="@drawable/rounded_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_status_keamanan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Status Keamanan"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearDeteksiContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+                <!-- Deteksi Api -->
+                <LinearLayout
+                    android:layout_width="93dp"
+                    android:layout_height="139dp"
+                    android:background="@drawable/rounded_deteksi_api"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:src="@drawable/ic_deteksi_api" />
+
+                    <TextView
+                        android:layout_width="72dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Deteksi Api"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="61dp"
+                        android:layout_height="17dp"
+                        android:layout_marginTop="7dp"
+                        android:background="@drawable/button_gradient_green"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:stateListAnimator="@null"
+                        android:text="Aman"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <!-- Spacer antara box -->
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="0dp" />
+
+                <!-- Deteksi Sampah 1 -->
+                <LinearLayout
+                    android:layout_width="93dp"
+                    android:layout_height="139dp"
+                    android:background="@drawable/rounded_deteksi_sampah"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:src="@drawable/ic_deteksi_sampah" />
+
+                    <TextView
+                        android:layout_width="72dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Deteksi Sampah"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="61dp"
+                        android:layout_height="17dp"
+                        android:layout_marginTop="7dp"
+                        android:background="@drawable/button_deteksi_sampah"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:stateListAnimator="@null"
+                        android:text="Terdeteksi"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <!-- Spacer antara box -->
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="0dp" />
+
+                <!-- Deteksi Sampah 2 -->
+                <LinearLayout
+                    android:layout_width="93dp"
+                    android:layout_height="139dp"
+                    android:background="@drawable/rounded_deteksi_orang"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:src="@drawable/ic_deteksi_orang" />
+
+                    <TextView
+                        android:layout_width="72dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Deteksi Orang"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="61dp"
+                        android:layout_height="17dp"
+                        android:layout_marginTop="7dp"
+                        android:background="@drawable/button_deteksi_orang"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:stateListAnimator="@null"
+                        android:text="Terdeteksi"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_aksi_darurat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearDeteksiContainer" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="22dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Aksi Darurat"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toBottomOf="@+id/linearDeteksiContainer" />
+
+            <LinearLayout
+                android:id="@+id/linearFiturContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="11dp"
+                android:background="@drawable/rounded_car_10_percent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+                <!-- Panggil Damkar -->
+                <LinearLayout
+                    android:layout_width="93dp"
+                    android:layout_height="83dp"
+                    android:background="@drawable/rounded_panggil_damkar"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginTop="12dp"
+                        android:src="@drawable/ic_damkar" />
+
+                    <TextView
+                        android:layout_width="72dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Panggil Damkar"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- Spacer -->
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="0dp" />
+
+                <!-- Gunakan Mic -->
+                <LinearLayout
+                    android:id="@+id/btnGunakanMic"
+                    android:layout_width="93dp"
+                    android:layout_height="83dp"
+                    android:background="@drawable/rounded_gunakan_mic"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginTop="12dp"
+                        android:src="@drawable/ic_mic" />
+
+                    <TextView
+                        android:layout_width="72dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Gunakan Mic"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="0dp" />
+
+                <LinearLayout
+                    android:layout_width="93dp"
+                    android:layout_height="83dp"
+                    android:background="@drawable/rounded_bantuan_teknis"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginTop="12dp"
+                        android:src="@drawable/ic_call_center" />
+
+                    <TextView
+                        android:layout_width="72dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Bantuan Teknis"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="22dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/ic_live_monitor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearFiturContainer" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Live Monitoring"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toBottomOf="@+id/linearFiturContainer" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="11dp"
+                android:background="@drawable/rounded_car_10_percent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                <LinearLayout
+                    android:id="@+id/linearButtonContainer"
+                    android:layout_width="301dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="0dp"
+                        android:layout_height="23dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_lab"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:stateListAnimator="@null"
+                        android:text="Lab Multimedia"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="9sp" />
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="0dp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="0dp"
+                        android:layout_height="23dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_lab"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:stateListAnimator="@null"
+                        android:text="Lab Mobile"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="9sp" />
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="0dp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="0dp"
+                        android:layout_height="23dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_lab"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:stateListAnimator="@null"
+                        android:text="Lab Jaringan"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="9sp" />
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="321dp"
+                    android:layout_height="166dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearButtonContainer">
+
+                    <WebView
+                        android:id="@+id/webView"
+                        android:layout_width="323dp"
+                        android:layout_height="170dp" />
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/linearButton"
+                    android:layout_width="279dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="34dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="34dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="0dp"
+                        android:layout_height="31dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_gradient_mulai_deteksi"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:stateListAnimator="@null"
+                        android:text="Mulai Deteksi"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="0dp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="0dp"
+                        android:layout_height="31dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_gradient_stop_deteksi"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:stateListAnimator="@null"
+                        android:text="Stop Deteksi"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="98dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="98dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Realtime-Detection"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearButton" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/rounded_card"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerRealtime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="19dp"
+                android:src="@drawable/ic_riwayat_deteksi"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Riwayat Deteksi"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="11dp"
+                android:background="@drawable/rounded_car_10_percent"
+                android:paddingBottom="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+                <LinearLayout
+                    android:id="@+id/linearButtonn"
+                    android:layout_width="301dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="0dp"
+                        android:layout_height="23dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_lab"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:stateListAnimator="@null"
+                        android:text="Deteksi Sampah"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="9sp" />
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="0dp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="0dp"
+                        android:layout_height="23dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_lab"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:stateListAnimator="@null"
+                        android:text="Deteksi Api"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="9sp" />
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="0dp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="0dp"
+                        android:layout_height="23dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_lab"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:stateListAnimator="@null"
+                        android:text="Deteksi Orang"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="9sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_table_container"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearButtonn">
+
+                    <!-- Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_table_header"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="0dp">
+
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="WAKTU"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="LOKASI"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="NAMA"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="STATUS"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- RecyclerView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerTable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="19dp"
+                android:src="@drawable/ic_manajemen_db"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraint" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Manajemen Database"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintTop_toBottomOf="@+id/constraint" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="11dp"
+                android:background="@drawable/rounded_car_10_percent"
+                android:paddingBottom="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_gradient_round11"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="25"
+                        android:textColor="#FFA500"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Orang Terdaftar"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerOrang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Lihat Semua"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintt" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constrainttw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="11dp"
+                android:background="@drawable/rounded_car_10_percent"
+                android:paddingBottom="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9">
+
+                <LinearLayout
+                    android:id="@+id/linearLayouta"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_gradient_round11"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="5"
+                        android:textColor="#FFA500"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Laboratorium Terdaftar"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerLab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayouta" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Lihat Semua"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constrainttw" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="28dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_deteksi_sampah"
+                android:elevation="0dp"
+                android:fontFamily="@font/poppins_bold"
+                android:stateListAnimator="@null"
+                android:text="Kelola Database"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

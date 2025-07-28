@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_gradient_round11"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:layout_marginBottom="12dp"
+    android:gravity="center_vertical">
+
+    <!-- Inisial / Foto Profil -->
+    <ImageView
+        android:id="@+id/userInitial"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:src="@drawable/profile"
+        />
+
+    <!-- Nama dan Role -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dul Arafat Muin"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_bold" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mahasiswa"
+            android:textColor="#80FFFFFF"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_regular" />
+    </LinearLayout>
+
+</LinearLayout>
