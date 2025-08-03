@@ -9,7 +9,8 @@
     android:background="@drawable/bg_gradient">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/btnProfile"
+        android:background="@drawable/bg_bundar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
@@ -24,11 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="27dp"
-        android:text="Hi Murnie,"
+        android:text="Halo Murnie,"
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/btnProfile"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -39,8 +40,8 @@
         android:textColor="@color/white"
         android:fontFamily="@font/poppins_regular"
         android:textSize="15sp"
-        android:text="Welcome Back!"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        android:text="Selamat Datang!"
+        app:layout_constraintStart_toEndOf="@+id/btnProfile"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <LinearLayout
@@ -57,12 +58,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/btnNotif"
+            android:id="@+id/btnLanguage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="11dp"
             android:contentDescription="Notifikasi"
-            android:src="@drawable/ic_notif" />
+            android:src="@drawable/flag_indonesia" />
 
         <ImageView
             android:id="@+id/btnSearch"
@@ -822,6 +823,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
+                        android:id="@+id/countPerson"
                         android:fontFamily="@font/poppins_bold"
                         android:text="25"
                         android:textColor="#FFA500"
@@ -852,7 +854,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/viewAllPersons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -875,7 +877,7 @@
                 android:paddingBottom="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9">
+                app:layout_constraintTop_toBottomOf="@+id/viewAllPersons">
 
                 <LinearLayout
                     android:id="@+id/linearLayouta"

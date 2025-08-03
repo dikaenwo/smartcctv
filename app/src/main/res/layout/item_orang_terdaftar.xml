@@ -10,7 +10,7 @@
 
     <!-- Inisial / Foto Profil -->
     <ImageView
-        android:id="@+id/userInitial"
+        android:id="@+id/photoPerson"
         android:layout_width="42dp"
         android:layout_height="42dp"
         android:gravity="center"

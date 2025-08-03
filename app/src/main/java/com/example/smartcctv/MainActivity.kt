@@ -1,5 +1,6 @@
 package com.example.smartcctv
 import android.Manifest
+import android.content.Intent
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
@@ -15,9 +16,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.smartcctv.api.ApiClient
 import com.example.smartcctv.data.*
+import com.example.smartcctv.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -26,14 +33,17 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private var recorder: MediaRecorder? = null
     private lateinit var audioFile: File
+    private lateinit var orangTerdaftarAdapter: OrangTerdaftarAdapter
     private var isRecording = false // Flag untuk status rekam
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -66,9 +76,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.btnProfile.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.viewAllPersons.setOnClickListener {
+            val intent = Intent(this, OrangTerdaftar::class.java)
+            startActivity(intent)
+        }
+
         // --- Kode untuk RecyclerViews dan WebView (tidak diubah) ---
         setupRecyclerViews()
         setupWebView()
+        fetchRegisteredPersons()
     }
 
     private fun startRecording() {
@@ -172,6 +194,31 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+    private fun fetchRegisteredPersons() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val response = ApiClient.instance.getAllPersons()
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        val personList = response.body() ?: emptyList()
+
+                        // --- UPDATE JUMLAH DATA DI SINI ---
+                        binding.countPerson.text = personList.size.toString()
+
+                        // Ambil 5 data pertama untuk ditampilkan di RecyclerView
+                        orangTerdaftarAdapter.updateData(personList.take(5))
+
+                    } else {
+                        Toast.makeText(this@MainActivity, "Gagal memuat daftar orang", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.e("MainActivity", "Error fetching persons: ${e.message}")
+                }
+            }
+        }
+    }
 
     // Fungsi bantuan untuk merapikan kode onCreate
     private fun setupRecyclerViews() {
@@ -193,23 +240,26 @@ class MainActivity : AppCompatActivity() {
         )
         recycler.adapter = RealtimeDetectionAdapter(eventList)
 
-        val recyclerOrang = findViewById<RecyclerView>(R.id.recyclerOrang)
-        recyclerOrang.layoutManager = LinearLayoutManager(this)
-        val orangTerdaftarList = listOf(
-            OrangTerdaftarData("AA Sirua", "Mahasiswa"),
-            OrangTerdaftarData("Nurul Khaerani Hamzidah, S.T., M.T.", "Dosen"),
-            OrangTerdaftarData("Nurichzan AS, S.Si,. M.Si.", "Dosen"),
-        )
-        recyclerOrang.adapter = OrangTerdaftarAdapter(orangTerdaftarList)
+        orangTerdaftarAdapter = OrangTerdaftarAdapter(emptyList()) { person ->
+            // Aksi saat item di MainActivity di-klik
+            val intent = Intent(this, PersonDetailActivity::class.java)
+            intent.putExtra("PERSON_ID", person.idPerson)
+            startActivity(intent)
+        }
+        binding.recyclerOrang.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false) // Set horizontal
+        binding.recyclerOrang.adapter = orangTerdaftarAdapter
 
-        val recyclerLab = findViewById<RecyclerView>(R.id.recyclerLab)
-        recyclerLab.layoutManager = LinearLayoutManager(this)
-        val labTerdaftarList = listOf(
-            OrangTerdaftarData("Lab.Multimedia", "Lantai 2, Gedung Elektro"),
-            OrangTerdaftarData("Lab. Mobile", "Lantai 2, Gedung Elektro"),
-            OrangTerdaftarData("Lab Jaringan", "Lantai 2, Gedung Elektro"),
-        )
-        recyclerLab.adapter = OrangTerdaftarAdapter(labTerdaftarList)
+
+
+
+//        val recyclerLab = findViewById<RecyclerView>(R.id.recyclerLab)
+//        recyclerLab.layoutManager = LinearLayoutManager(this)
+//        val labTerdaftarList = listOf(
+//            OrangTerdaftarData("Lab.Multimedia", "Lantai 2, Gedung Elektro"),
+//            OrangTerdaftarData("Lab. Mobile", "Lantai 2, Gedung Elektro"),
+//            OrangTerdaftarData("Lab Jaringan", "Lantai 2, Gedung Elektro"),
+//        )
+//        recyclerLab.adapter = OrangTerdaftarAdapter(labTerdaftarList)
     }
 
     private fun setupWebView() {
