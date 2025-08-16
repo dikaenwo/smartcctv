@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="27dp"
-        android:text="Halo Murnie,"
+        android:text="Halo Nurul"
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -39,7 +39,7 @@
         android:layout_marginStart="12dp"
         android:textColor="@color/white"
         android:fontFamily="@font/poppins_regular"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:text="Selamat Datang!"
         app:layout_constraintStart_toEndOf="@+id/btnProfile"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -143,8 +143,11 @@
 
                 <!-- Deteksi Api -->
                 <LinearLayout
-                    android:layout_width="93dp"
-                    android:layout_height="139dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="0dp"
+                    android:paddingVertical="10dp"
                     android:background="@drawable/rounded_deteksi_api"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
@@ -186,8 +189,11 @@
 
                 <!-- Deteksi Sampah 1 -->
                 <LinearLayout
-                    android:layout_width="93dp"
-                    android:layout_height="139dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="0dp"
+                    android:paddingVertical="10dp"
                     android:background="@drawable/rounded_deteksi_sampah"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
@@ -229,8 +235,11 @@
 
                 <!-- Deteksi Sampah 2 -->
                 <LinearLayout
-                    android:layout_width="93dp"
-                    android:layout_height="139dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="0dp"
+                    android:paddingVertical="10dp"
                     android:background="@drawable/rounded_deteksi_orang"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
@@ -306,11 +315,15 @@
 
                 <!-- Panggil Damkar -->
                 <LinearLayout
-                    android:layout_width="93dp"
-                    android:layout_height="83dp"
+                    android:id="@+id/panggilDamkar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/rounded_panggil_damkar"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="0dp"
+                    android:paddingVertical="8dp">
 
                     <ImageView
                         android:layout_width="18dp"
@@ -337,11 +350,14 @@
                 <!-- Gunakan Mic -->
                 <LinearLayout
                     android:id="@+id/btnGunakanMic"
-                    android:layout_width="93dp"
-                    android:layout_height="83dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/rounded_gunakan_mic"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="0dp"
+                    android:paddingVertical="8dp">
 
                     <ImageView
                         android:layout_width="18dp"
@@ -366,11 +382,15 @@
                     android:layout_height="0dp" />
 
                 <LinearLayout
-                    android:layout_width="93dp"
-                    android:layout_height="83dp"
+                    android:id="@+id/bantuanTeknis"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/rounded_bantuan_teknis"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="0dp"
+                    android:paddingVertical="8dp">
 
                     <ImageView
                         android:layout_width="18dp"
@@ -492,68 +512,107 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView"
-                    android:layout_width="321dp"
-                    android:layout_height="166dp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="0dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearButtonContainer">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearButtonContainer"
+                    app:layout_constraintDimensionRatio="16:9">
 
-                    <WebView
-                        android:id="@+id/webView"
-                        android:layout_width="323dp"
-                        android:layout_height="170dp" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <WebView
+                            android:id="@+id/webView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <ImageButton
+                            android:id="@+id/btnFullscreen"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_fullscreen"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:layout_gravity="bottom|end"
+                            android:layout_margin="8dp"
+                            android:contentDescription="Tombol Fullscreen" />
+
+                    </FrameLayout>
+
                 </androidx.cardview.widget.CardView>
 
+
                 <LinearLayout
-                    android:id="@+id/linearButton"
-                    android:layout_width="279dp"
-                    android:layout_height="51dp"
+                    android:id="@+id/detectionButtonsLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="34dp"
-                    android:layout_marginTop="3dp"
                     android:layout_marginEnd="34dp"
-                    android:gravity="center"
+                    android:layout_marginTop="16dp"
                     android:orientation="horizontal"
+                    android:gravity="center_vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardView">
 
-
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnMotionDetection"
                         android:layout_width="0dp"
-                        android:layout_height="31dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
-                        android:background="@drawable/button_gradient_mulai_deteksi"
-                        android:elevation="0dp"
+                        android:background="@drawable/button_detection_selector"
                         android:fontFamily="@font/poppins_bold"
-                        android:stateListAnimator="@null"
-                        android:text="Mulai Deteksi"
+                        android:text="Deteksi
+                        Gerak"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        android:textSize="11sp"
+                        android:stateListAnimator="@null"
+                        android:elevation="0dp"/>
 
                     <Space
-                        android:layout_width="12dp"
+                        android:layout_width="8dp"
                         android:layout_height="0dp" />
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnFireDetection"
                         android:layout_width="0dp"
-                        android:layout_height="31dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
-                        android:background="@drawable/button_gradient_stop_deteksi"
-                        android:elevation="0dp"
+                        android:background="@drawable/button_detection_selector"
                         android:fontFamily="@font/poppins_bold"
-                        android:stateListAnimator="@null"
-                        android:text="Stop Deteksi"
+                        android:text="Deteksi
+                        Api"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        android:textSize="11sp"
+                        android:stateListAnimator="@null"
+                        android:elevation="0dp"/>
+
+                    <Space
+                        android:layout_width="8dp"
+                        android:layout_height="0dp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnTrashDetection"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_detection_selector"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Deteksi Sampah"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="11sp"
+                        android:stateListAnimator="@null"
+                        android:elevation="0dp"/>
+
                 </LinearLayout>
 
                 <TextView
@@ -569,7 +628,7 @@
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearButton" />
+                    app:layout_constraintTop_toBottomOf="@+id/detectionButtonsLayout" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

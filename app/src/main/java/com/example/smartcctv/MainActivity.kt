@@ -1,24 +1,23 @@
 package com.example.smartcctv
+
 import android.Manifest
 import android.content.Intent
 import android.media.MediaRecorder
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.webkit.WebView
-import android.widget.LinearLayout
-import android.widget.Toast // Import Toast untuk notifikasi
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.smartcctv.api.ApiClient
 import com.example.smartcctv.data.*
 import com.example.smartcctv.databinding.ActivityMainBinding
@@ -28,8 +27,11 @@ import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 import java.io.File
 import java.io.IOException
+import java.net.URLEncoder
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +39,12 @@ class MainActivity : AppCompatActivity() {
     private var recorder: MediaRecorder? = null
     private lateinit var audioFile: File
     private lateinit var orangTerdaftarAdapter: OrangTerdaftarAdapter
-    private var isRecording = false // Flag untuk status rekam
+    private var isRecording = false
+
+    private val client = OkHttpClient()
+    private val apiFlaskUrl = "http://192.168.110.87:5000"
+
+    private lateinit var detectionButtons: List<AppCompatButton>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,39 +52,88 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        detectionButtons = listOf(
+            binding.btnMotionDetection,
+            binding.btnFireDetection,
+            binding.btnTrashDetection
+        )
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Minta permission rekam audio dan penyimpanan
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(
-                Manifest.permission.RECORD_AUDIO
-                // WRITE_EXTERNAL_STORAGE dan READ_EXTERNAL_STORAGE tidak diperlukan untuk API 29+ jika menyimpan ke cache
-            ),
-            0
-        )
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), 0)
 
-        val micButton = findViewById<LinearLayout>(R.id.btnGunakanMic)
-        micButton.setOnClickListener {
+        binding.btnGunakanMic.setOnClickListener {
             if (!isRecording) {
                 startRecording()
-
-                // Otomatis berhenti dan upload setelah 5 detik
                 Handler(Looper.getMainLooper()).postDelayed({
                     if (isRecording) {
                         stopRecording()
                         uploadAudioToRaspberryPi()
                     }
-                }, 5000) // 5 detik
+                }, 5000)
             }
+        }
+
+        binding.bantuanTeknis.setOnClickListener {
+            // Nomor telepon tujuan dalam format internasional
+            val phoneNumber = "+6281355649201"
+
+            // Pesan default yang akan terisi otomatis di WhatsApp (opsional, tapi sangat membantu)
+            val message = "Halo, saya butuh bantuan teknis terkait aplikasi Smart CCTV."
+
+            try {
+                // Hapus karakter selain angka dari nomor telepon
+                val formattedNumber = phoneNumber.replace(Regex("[^0-9]"), "")
+
+                // Encode pesan agar formatnya benar untuk URL
+                val encodedMessage = URLEncoder.encode(message, "UTF-8")
+
+                // Buat URL untuk WhatsApp API
+                val url = "https://api.whatsapp.com/send?phone=$formattedNumber&text=$encodedMessage"
+
+                // Buat Intent dengan action VIEW untuk membuka URL
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(url)
+
+                // Mulai activity untuk membuka WhatsApp
+                startActivity(intent)
+
+            } catch (e: Exception) {
+                // Tangani error jika WhatsApp tidak terinstall atau terjadi kesalahan lain
+                Toast.makeText(this, "Gagal membuka WhatsApp. Pastikan aplikasi sudah terpasang.", Toast.LENGTH_LONG).show()
+                e.printStackTrace()
+            }
+        }
+
+        binding.panggilDamkar.setOnClickListener {
+            // Nomor telepon Damkar Makassar yang akan dituju
+            val phoneNumber = "0411854444"
+
+            // Membuat Intent dengan action ACTION_DIAL
+            // Ini akan membuka aplikasi telepon dengan nomor sudah terisi, BUKAN langsung menelepon
+            val dialIntent = Intent(Intent.ACTION_DIAL)
+
+            // Menetapkan data intent ke nomor telepon dengan format "tel:"
+            dialIntent.data = Uri.parse("tel:$phoneNumber")
+
+            // Memulai activity untuk membuka dialer
+            startActivity(dialIntent)
         }
 
         binding.btnProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.btnLogout.setOnClickListener {
+            Toast.makeText(this, "Berhasil Logout", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }
@@ -87,27 +143,94 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // --- Kode untuk RecyclerViews dan WebView (tidak diubah) ---
+        setupDetectionButtons()
         setupRecyclerViews()
         setupWebView()
         fetchRegisteredPersons()
     }
 
-    private fun startRecording() {
-        // Tentukan direktori penyimpanan di cache internal aplikasi
-        val dir = File(externalCacheDir, "audio")
-        if (!dir.exists()) {
-            dir.mkdirs()
+    private fun setupDetectionButtons() {
+        detectionButtons.forEach { button ->
+            button.setOnClickListener {
+                val featureName = when (button.id) {
+                    R.id.btnMotionDetection -> "monitoring"
+                    R.id.btnFireDetection -> "fire"
+                    R.id.btnTrashDetection -> "trash"
+                    else -> return@setOnClickListener
+                }
+                val newState = !button.isSelected
+                toggleFeature(featureName, newState)
+            }
         }
+    }
 
-        // Gunakan format .mp4 agar lebih kompatibel
+    // --- FUNGSI INI DIHAPUS KARENA TIDAK ADA ENDPOINT GET ---
+    // private fun fetchInitialFeatureStates() { ... }
+
+    private fun toggleFeature(feature: String, state: Boolean) {
+        val url = "$apiFlaskUrl/toggle_feature"
+        val json = JSONObject().apply {
+            put("feature", feature)
+            put("state", state)
+        }
+        val requestBody = json.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val request = Request.Builder().url(url).post(requestBody).build()
+
+        Log.d("API_CALL", "Request: POST $url with body $json")
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("API_CALL", "Gagal: ${e.message}", e)
+                runOnUiThread {
+                    Toast.makeText(this@MainActivity, "Error: Gagal terhubung ke server", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseBody = response.body?.string()
+                Log.d("API_CALL", "Response: ${response.code} - $responseBody")
+
+                runOnUiThread {
+                    if (response.isSuccessful && responseBody != null) {
+                        try {
+                            val data = JSONObject(responseBody)
+                            val allFeatures = data.optJSONObject("all_features")
+                            if (allFeatures != null) {
+                                // INI BAGIAN KUNCINYA:
+                                // Selalu sinkronkan UI berdasarkan respons 'all_features' dari server
+                                syncButtonStates(allFeatures)
+                            }
+                        } catch (e: Exception) {
+                            Log.e("API_CALL", "Error parsing JSON: $e")
+                        }
+                    } else {
+                        Toast.makeText(this@MainActivity, "Gagal mengubah status: $responseBody", Toast.LENGTH_LONG).show()
+                    }
+                }
+                response.close()
+            }
+        })
+    }
+
+    private fun syncButtonStates(features: JSONObject) {
+        Log.d("UI_SYNC", "Menyinkronkan UI dengan data: $features")
+        binding.btnMotionDetection.isSelected = features.optBoolean("monitoring", false)
+        binding.btnFireDetection.isSelected = features.optBoolean("fire", false)
+        binding.btnTrashDetection.isSelected = features.optBoolean("trash", false)
+    }
+
+    // --- Sisa kode Anda tidak berubah ---
+    // ... (fungsi startRecording, stopRecording, uploadAudioToRaspberryPi, dll.)
+    private fun startRecording() {
+        val dir = File(externalCacheDir, "audio")
+        if (!dir.exists()) dir.mkdirs()
         audioFile = File(dir, "recorded_audio.mp4")
 
-        // CEK VERSI ANDROID UNTUK KOMPATIBILITAS
         val mediaRecorder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             MediaRecorder(this)
         } else {
-            MediaRecorder() // <-- Gunakan constructor lama untuk API < 31
+            @Suppress("DEPRECATION")
+            MediaRecorder()
         }
 
         recorder = mediaRecorder.apply {
@@ -151,7 +274,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         val client = OkHttpClient()
-        // UBAH: Sesuaikan media type dengan format file .mp4
         val mediaType = "audio/mp4".toMediaTypeOrNull()
         val requestBody = audioFile.asRequestBody(mediaType)
 
@@ -160,10 +282,8 @@ class MainActivity : AppCompatActivity() {
             .addFormDataPart("audio", audioFile.name, requestBody)
             .build()
 
-        // Pastikan IP Address dan Port sudah benar
         val request = Request.Builder()
-            .url("http://10.12.12.1" +
-                    "59:5050/audio/upload")
+            .url("http://192.168.110.69:5050/audio/upload")
             .post(multipartBody)
             .build()
 
@@ -171,12 +291,10 @@ class MainActivity : AppCompatActivity() {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 Log.e("UPLOAD", "Gagal upload audio", e)
-                // Menampilkan pesan error di UI thread
                 runOnUiThread {
                     Toast.makeText(this@MainActivity, "Gagal upload: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
-
             override fun onResponse(call: Call, response: Response) {
                 val responseBody = response.body?.string()
                 if (response.isSuccessful) {
@@ -190,10 +308,11 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this@MainActivity, "Gagal: $responseBody", Toast.LENGTH_LONG).show()
                     }
                 }
-                response.close() // Penting untuk menutup response body
+                response.close()
             }
         })
     }
+
     private fun fetchRegisteredPersons() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
@@ -201,13 +320,8 @@ class MainActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         val personList = response.body() ?: emptyList()
-
-                        // --- UPDATE JUMLAH DATA DI SINI ---
                         binding.countPerson.text = personList.size.toString()
-
-                        // Ambil 5 data pertama untuk ditampilkan di RecyclerView
                         orangTerdaftarAdapter.updateData(personList.take(5))
-
                     } else {
                         Toast.makeText(this@MainActivity, "Gagal memuat daftar orang", Toast.LENGTH_SHORT).show()
                     }
@@ -220,9 +334,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Fungsi bantuan untuk merapikan kode onCreate
     private fun setupRecyclerViews() {
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerTable)
+        val recyclerView = binding.recyclerTable
         recyclerView.layoutManager = LinearLayoutManager(this)
         val data = listOf(
             TableRowData("14:32:15", "Lab Multimedia", "Rezki Andika", "Dikenali"),
@@ -231,7 +344,7 @@ class MainActivity : AppCompatActivity() {
         )
         recyclerView.adapter = TableAdapter(data)
 
-        val recycler = findViewById<RecyclerView>(R.id.recyclerRealtime)
+        val recycler = binding.recyclerRealtime
         recycler.layoutManager = LinearLayoutManager(this)
         val eventList = listOf(
             RealtimeDetectionData("Lab Multimedia: Dr. Ahmad Rifai masuk lab", "14:32:15"),
@@ -241,31 +354,33 @@ class MainActivity : AppCompatActivity() {
         recycler.adapter = RealtimeDetectionAdapter(eventList)
 
         orangTerdaftarAdapter = OrangTerdaftarAdapter(emptyList()) { person ->
-            // Aksi saat item di MainActivity di-klik
             val intent = Intent(this, PersonDetailActivity::class.java)
             intent.putExtra("PERSON_ID", person.idPerson)
             startActivity(intent)
         }
-        binding.recyclerOrang.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false) // Set horizontal
+        binding.recyclerOrang.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerOrang.adapter = orangTerdaftarAdapter
-
-
-
-
-//        val recyclerLab = findViewById<RecyclerView>(R.id.recyclerLab)
-//        recyclerLab.layoutManager = LinearLayoutManager(this)
-//        val labTerdaftarList = listOf(
-//            OrangTerdaftarData("Lab.Multimedia", "Lantai 2, Gedung Elektro"),
-//            OrangTerdaftarData("Lab. Mobile", "Lantai 2, Gedung Elektro"),
-//            OrangTerdaftarData("Lab Jaringan", "Lantai 2, Gedung Elektro"),
-//        )
-//        recyclerLab.adapter = OrangTerdaftarAdapter(labTerdaftarList)
     }
+
+    // Di dalam MainActivity.kt
+
+    // Di dalam MainActivity.kt
 
     private fun setupWebView() {
-        val webView = findViewById<WebView>(R.id.webView)
+        val webView = binding.webView
+        val btnFullscreen = binding.btnFullscreen // Ambil referensi tombol dari layout
+        val urlToLoad = "$apiFlaskUrl/lempar"
+
         webView.settings.javaScriptEnabled = true
-        // Pastikan IP Address ini bisa diakses dari HP Anda
-        webView.loadUrl("http://10.12.12.159:5000/video_feed")
+        webView.loadUrl(urlToLoad)
+
+        // Listener dipasang pada TOMBOL, bukan WebView
+        btnFullscreen.setOnClickListener {
+            val intent = Intent(this, FullScreenWebViewActivity::class.java).apply {
+                putExtra("EXTRA_URL", urlToLoad)
+            }
+            startActivity(intent)
+        }
     }
+
 }

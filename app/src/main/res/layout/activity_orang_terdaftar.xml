@@ -38,15 +38,16 @@
 
     <!-- Isi -->
     <LinearLayout
-        android:layout_width="374dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/rounded_card"
         android:orientation="vertical"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="16dp">
 
         <FrameLayout
-            android:layout_width="320dp"
-            android:layout_height="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/bg_gradient_round11"
             android:clipToOutline="true"
@@ -55,15 +56,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:paddingVertical="12dp">
 
                 <TextView
                     android:id="@+id/countPerson"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="250"
+                    android:text="0"
                     android:textColor="#FFA500"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -76,20 +78,15 @@
                     android:textColor="#FFFFFF"
                     android:textSize="12sp"
                     android:fontFamily="@font/poppins_medium"
-                    android:layout_marginTop="-10dp"/>
+                    android:layout_marginTop="-4dp"/>
             </LinearLayout>
         </FrameLayout>
-
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerAllPersons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp" />
-
-
+            android:layout_marginTop="16dp" />
     </LinearLayout>
+
 </LinearLayout>
