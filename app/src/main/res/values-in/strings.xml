@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Opta Guard</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+
+    <string name="profileName">Halo Nurul</string>
+    <string name="tvWelcome">Selamat Datang</string>
+
+    <string name="tvSecrurityStatus">Status Keamanan</string>
+    <string name="tvFireDetection">Deteksi Api</string>
+    <string name="tvTrashDetection">Deteksi Sampah</string>
+    <string name="tvHumanDetection">Deteksi Manusia</string>
+    <string name="tvSafe">Aman</string>
+    <string name="tvDetected">Terdeteksi</string>
+
+    <string name="tvEmergencyAction">Tindakan Darurat</string>
+    <string name="tvFireFighter">Panggil Damkar</string>
+    <string name="tvUseMic">Gunakan \n Mikrofon</string>
+    <string name="tvTechSupport">Dukungan Teknis</string>
+
+    <string name="tvLiveMonitoring">Pantauan Langsung</string>
+    <string name="tvRealtimeDetection">Deteksi Real-time</string>
+
+    <string name="tvDetectionHistory">Riwayat Deteksi</string>
+    <string name="tvTime">Waktu</string>
+    <string name="tvLocation">Lokasi</string>
+    <string name="tvName">Nama</string>
+    <string name="tvStatus">Status</string>
+
+    <string name="tvDatabaseManagement">Manajemen Database</string>
+    <string name="tvRegisteredPerson">Orang Terdaftar</string>
+    <string name="tvSeeAll">Lihat Semua</string>
+    <string name="tvRegisteredLab">Lab Terdaftar</string>
+    <string name="tvManageDatabase">Kelola Database</string>
+
+</resources>

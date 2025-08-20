@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="27dp"
-        android:text="Halo Nurul"
+        android:text="@string/profileName"
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -40,7 +40,7 @@
         android:textColor="@color/white"
         android:fontFamily="@font/poppins_regular"
         android:textSize="12sp"
-        android:text="Selamat Datang!"
+        android:text="@string/tvWelcome"
         app:layout_constraintStart_toEndOf="@+id/btnProfile"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -62,7 +62,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="11dp"
-            android:contentDescription="Notifikasi"
             android:src="@drawable/flag_indonesia" />
 
         <ImageView
@@ -122,7 +121,7 @@
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="14dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Status Keamanan"
+                android:text="@string/tvSecrurityStatus"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -163,7 +162,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Deteksi Api"
+                        android:text="@string/tvFireDetection"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="13sp" />
@@ -176,7 +175,7 @@
                         android:elevation="0dp"
                         android:fontFamily="@font/poppins_regular"
                         android:stateListAnimator="@null"
-                        android:text="Aman"
+                        android:text="@string/tvSafe"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
@@ -209,7 +208,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Deteksi Sampah"
+                        android:text="@string/tvTrashDetection"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="13sp" />
@@ -222,7 +221,7 @@
                         android:elevation="0dp"
                         android:fontFamily="@font/poppins_regular"
                         android:stateListAnimator="@null"
-                        android:text="Terdeteksi"
+                        android:text="@string/tvDetected"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
@@ -255,7 +254,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Deteksi Orang"
+                        android:text="@string/tvHumanDetection"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="13sp" />
@@ -268,7 +267,7 @@
                         android:elevation="0dp"
                         android:fontFamily="@font/poppins_regular"
                         android:stateListAnimator="@null"
-                        android:text="Terdeteksi"
+                        android:text="@string/tvDetected"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="10sp" />
@@ -292,7 +291,7 @@
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="22dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Aksi Darurat"
+                android:text="@string/tvEmergencyAction"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
@@ -336,7 +335,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Panggil Damkar"
+                        android:text="@string/tvFireFighter"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
@@ -370,7 +369,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Gunakan Mic"
+                        android:text="@string/tvUseMic"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
@@ -403,7 +402,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Bantuan Teknis"
+                        android:text="@string/tvTechSupport"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
@@ -427,7 +426,7 @@
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="18dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Live Monitoring"
+                android:text="@string/tvLiveMonitoring"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
@@ -568,8 +567,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_detection_selector"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Deteksi
-                        Gerak"
+                        android:text="@string/tvHumanDetection"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="11sp"
@@ -587,8 +585,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_detection_selector"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Deteksi
-                        Api"
+                        android:text="@string/tvFireDetection"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="11sp"
@@ -606,7 +603,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_detection_selector"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Deteksi Sampah"
+                        android:text="@string/tvTrashDetection"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="11sp"
@@ -623,7 +620,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="98dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Realtime-Detection"
+                    android:text="@string/tvRealtimeDetection"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -668,7 +665,7 @@
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="18dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Riwayat Deteksi"
+                android:text="@string/tvDetectionHistory"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
@@ -708,7 +705,7 @@
                         android:elevation="0dp"
                         android:fontFamily="@font/poppins_bold"
                         android:stateListAnimator="@null"
-                        android:text="Deteksi Sampah"
+                        android:text="@string/tvFireDetection"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="9sp" />
@@ -726,7 +723,7 @@
                         android:elevation="0dp"
                         android:fontFamily="@font/poppins_bold"
                         android:stateListAnimator="@null"
-                        android:text="Deteksi Api"
+                        android:text="@string/tvTrashDetection"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="9sp" />
@@ -744,7 +741,7 @@
                         android:elevation="0dp"
                         android:fontFamily="@font/poppins_bold"
                         android:stateListAnimator="@null"
-                        android:text="Deteksi Orang"
+                        android:text="@string/tvHumanDetection"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="9sp" />
@@ -780,7 +777,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_bold"
                             android:gravity="center"
-                            android:text="WAKTU"
+                            android:text="@string/tvTime"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -791,7 +788,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_bold"
                             android:gravity="center"
-                            android:text="LOKASI"
+                            android:text="@string/tvLocation"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -802,7 +799,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_bold"
                             android:gravity="center"
-                            android:text="NAMA"
+                            android:text="@string/tvName"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -812,7 +809,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_bold"
                             android:gravity="center"
-                            android:text="STATUS"
+                            android:text="@string/tvStatus"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -845,7 +842,7 @@
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="18dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Manajemen Database"
+                android:text="@string/tvDatabaseManagement"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"
@@ -893,7 +890,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-8dp"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Orang Terdaftar"
+                        android:text="@string/tvRegisteredPerson"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
 
@@ -918,7 +915,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Lihat Semua"
+                android:text="@string/tvSeeAll"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -966,7 +963,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-8dp"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Laboratorium Terdaftar"
+                        android:text="@string/tvRegisteredLab"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
 
@@ -991,7 +988,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Lihat Semua"
+                android:text="@string/tvSeeAll"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -1009,7 +1006,7 @@
                 android:elevation="0dp"
                 android:fontFamily="@font/poppins_bold"
                 android:stateListAnimator="@null"
-                android:text="Kelola Database"
+                android:text="@string/tvManageDatabase"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="12sp"

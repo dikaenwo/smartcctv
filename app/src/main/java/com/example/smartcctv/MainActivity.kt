@@ -1,6 +1,7 @@
 package com.example.smartcctv
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.media.MediaRecorder
 import android.net.Uri
@@ -12,8 +13,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
+import androidx.core.os.LocaleListCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -46,11 +49,21 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var detectionButtons: List<AppCompatButton>
 
+    override fun attachBaseContext(newBase: Context) {
+
+        val sharedPrefs = newBase.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+        val language = sharedPrefs.getString("language", "in") ?: "in" // Default 'in' (Indonesia)
+        applyLocale(language)
+        super.attachBaseContext(newBase)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        updateLanguageButtonUI()
 
         detectionButtons = listOf(
             binding.btnMotionDetection,
@@ -65,6 +78,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), 0)
+
+        binding.btnLanguage.setOnClickListener {
+            // Cek bahasa yang sedang aktif
+            val currentLang = getSavedLanguage()
+            // Tentukan bahasa baru (kebalikannya)
+            val newLang = if (currentLang == "in") "en" else "in"
+
+            // Simpan bahasa baru & restart activity untuk menerapkan perubahan
+            saveLanguage(newLang)
+            recreate() // Ini akan memuat ulang activity dengan bahasa baru
+        }
 
         binding.btnGunakanMic.setOnClickListener {
             if (!isRecording) {
@@ -360,6 +384,30 @@ class MainActivity : AppCompatActivity() {
         }
         binding.recyclerOrang.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerOrang.adapter = orangTerdaftarAdapter
+    }
+
+    private fun applyLocale(languageCode: String) {
+        val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(languageCode)
+        AppCompatDelegate.setApplicationLocales(appLocale)
+    }
+
+    private fun saveLanguage(languageCode: String) {
+        val sharedPrefs = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+        sharedPrefs.edit().putString("language", languageCode).apply()
+    }
+
+    private fun getSavedLanguage(): String {
+        val sharedPrefs = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+        return sharedPrefs.getString("language", "in") ?: "in" // Default ke 'in' jika tidak ada
+    }
+
+    private fun updateLanguageButtonUI() {
+        val currentLang = getSavedLanguage()
+        if (currentLang == "in") {
+            binding.btnLanguage.setImageResource(R.drawable.flag_indonesia)
+        } else {
+            binding.btnLanguage.setImageResource(R.drawable.flag_uk)
+        }
     }
 
     // Di dalam MainActivity.kt

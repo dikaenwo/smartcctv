@@ -1,4 +1,45 @@
 <resources>
     <string name="app_name">Opta Guard</string>
     <string name="title_activity_profile">ProfileActivity</string>
+
+    <!-- Header  -->
+    <string name="profileName">Hello Nurul</string>
+    <string name="tvWelcome">Welcome</string>
+
+    <!-- Status Keamanan -->
+    <string name="tvSecrurityStatus">Security Status</string>
+    <string name="tvFireDetection">Fire Detection</string>
+    <string name="tvTrashDetection">Trash Detection</string>
+    <string name="tvHumanDetection">Human Detection</string>
+    <string name="tvSafe">Safe</string>
+    <string name="tvDetected">Detected</string>
+
+    <!-- Emergency Action -->
+    <string name="tvEmergencyAction">Emergency Action</string>
+    <string name="tvFireFighter">Call Firefighter</string>
+    <string name="tvUseMic">Using \n Mic</string>
+    <string name="tvTechSupport">Technical Support</string>
+    
+    <!-- Live Monitoring -->
+    <string name="tvLiveMonitoring">Live Monitoring</string>
+    <string name="tvRealtimeDetection">Relatime-Detection</string>
+
+    <!-- Detection History -->
+    <string name="tvDetectionHistory">Detection History</string>
+    <string name="tvTime">Time</string>
+    <string name="tvLocation">Location</string>
+    <string name="tvName">Name</string>
+    <string name="tvStatus">Status</string>
+
+    <!-- Database Management -->
+    <string name="tvDatabaseManagement">Database Management</string>
+    <string name="tvRegisteredPerson">Registered Person</string>
+    <string name="tvSeeAll">See All</string>
+    <string name="tvRegisteredLab">Registered Lab</string>
+    <string name="tvManageDatabase">Manage Database</string>
+
+
+
+
+
 </resources>
