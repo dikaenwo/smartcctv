@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupSwipeToRefresh()
 
         updateLanguageButtonUI()
 
@@ -127,7 +128,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
 
             } catch (e: Exception) {
-                // Tangani error jika WhatsApp tidak terinstall atau terjadi kesalahan lain
                 Toast.makeText(this, "Gagal membuka WhatsApp. Pastikan aplikasi sudah terpasang.", Toast.LENGTH_LONG).show()
                 e.printStackTrace()
             }
@@ -186,6 +186,19 @@ class MainActivity : AppCompatActivity() {
                 toggleFeature(featureName, newState)
             }
         }
+    }
+
+    private fun setupSwipeToRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            Log.d("Refresh", "Pengguna melakukan swipe to refresh.")
+            refreshData()
+        }
+    }
+
+    private fun refreshData() {
+        // Panggil semua fungsi yang ingin di-refresh
+        fetchRegisteredPersons()
+        binding.webView.reload()
     }
 
     // --- FUNGSI INI DIHAPUS KARENA TIDAK ADA ENDPOINT GET ---
@@ -338,6 +351,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchRegisteredPersons() {
+        binding.swipeRefreshLayout.isRefreshing = true
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val response = ApiClient.instance.getAllPersons()
@@ -353,6 +367,11 @@ class MainActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Log.e("MainActivity", "Error fetching persons: ${e.message}")
+                }
+            } finally {
+                // Ini akan selalu dijalankan untuk menyembunyikan loading
+                withContext(Dispatchers.Main) {
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
             }
         }
